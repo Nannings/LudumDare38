@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        rb.velocity = ForwardVelocity() + RightVelocity();
+        //rb.velocity = ForwardVelocity() + RightVelocity();
 
         if (Input.GetButton("Accelerate"))
         {
@@ -32,9 +32,11 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(transform.up * -speedForce / 2);
         }
 
-        float tf = Mathf.Lerp(0, torqueForce, rb.velocity.magnitude / 10);
+        rb.angularVelocity = (Input.GetAxis("Horizontal") * torqueForce);
 
-        rb.angularVelocity = (Input.GetAxis("Horizontal") * tf);
+        // float tf = Mathf.Lerp(0, torqueForce, rb.velocity.magnitude / 10);
+
+        //rb.angularVelocity = (Input.GetAxis("Horizontal") * tf);
     }
 
 
