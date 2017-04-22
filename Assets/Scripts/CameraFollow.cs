@@ -23,7 +23,7 @@ public class CameraFollow : MonoBehaviour
     {
         transform.position = new Vector3( target.position.x, target.position.y, -10f);
 
-        myCamera.orthographicSize = Mathf.Lerp(myCamera.orthographicSize, targetCameraSize, Time.deltaTime);
+        myCamera.orthographicSize = Mathf.Lerp(myCamera.orthographicSize, targetCameraSize, Time.deltaTime / 1.5f);
 	}
 
     public void MakeCameraSizeBigger()

@@ -25,8 +25,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void Movement()
     {
-        //rb.velocity = ForwardVelocity() + RightVelocity();
-
         if (Input.GetButton("Accelerate"))
         {
             myRigidBody2D.AddForce(transform.up * speedForce);
@@ -39,10 +37,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         myRigidBody2D.angularVelocity = (Input.GetAxis("Horizontal") * torqueForce);
-
-        // float tf = Mathf.Lerp(0, torqueForce, rb.velocity.magnitude / 10);
-
-        //rb.angularVelocity = (Input.GetAxis("Horizontal") * tf);
     }
 
     public void CameraSize()

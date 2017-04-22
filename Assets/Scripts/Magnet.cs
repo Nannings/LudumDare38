@@ -39,13 +39,17 @@ public class Magnet : MonoBehaviour {
 
     private void GettingAttachedTo(Collider2D collision)
     {
-        if (collision.transform.parent.CompareTag("Planet"))
+        if(collision.transform.parent)
         {
-            if (collision.transform.parent.gameObject != attractedTo)
+            if (collision.transform.parent.CompareTag("Planet"))
             {
-                attractedTo = collision.transform.parent.gameObject;
+                if (collision.transform.parent.gameObject != attractedTo)
+                {
+                    attractedTo = collision.transform.parent.gameObject;
+                }
             }
         }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -60,9 +64,12 @@ public class Magnet : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.transform.parent.gameObject == attractedTo)
+        if (collision.transform.parent)
         {
-            attractedTo = null;
+            if (collision.transform.parent.gameObject == attractedTo)
+            {
+                attractedTo = null;
+            }
         }
     }
 }
