@@ -4,49 +4,69 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    float speedForce = 10f;
-    float torqueForce = 200f;
-    Rigidbody2D rb;
+    private float speedForce = 10f;
+    private float torqueForce = 200f;
+    private Rigidbody2D myRigidBody2D;
+    private CameraFollow theCameraFollow;
 
     // Use this for initialization
     void Start ()
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        myRigidBody2D = GetComponent<Rigidbody2D>();
+        theCameraFollow = FindObjectOfType<CameraFollow>();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        rb = GetComponent<Rigidbody2D>();
+        Movement();
+        CameraSize();
+    }
 
+    public void Movement()
+    {
         //rb.velocity = ForwardVelocity() + RightVelocity();
 
         if (Input.GetButton("Accelerate"))
         {
-            rb.AddForce(transform.up * speedForce);
+            myRigidBody2D.AddForce(transform.up * speedForce);
         }
 
 
         if (Input.GetButton("Brakes"))
         {
-            rb.AddForce(transform.up * -speedForce / 2);
+            myRigidBody2D.AddForce(transform.up * -speedForce / 2);
         }
 
-        rb.angularVelocity = (Input.GetAxis("Horizontal") * torqueForce);
+        myRigidBody2D.angularVelocity = (Input.GetAxis("Horizontal") * torqueForce);
 
         // float tf = Mathf.Lerp(0, torqueForce, rb.velocity.magnitude / 10);
 
         //rb.angularVelocity = (Input.GetAxis("Horizontal") * tf);
     }
 
+    public void CameraSize()
+    {
+        if (theCameraFollow != null)
+        {
+            if (myRigidBody2D.velocity.magnitude > 1)
+            {
+                theCameraFollow.MakeCameraSizeBigger();
+            }
+            else
+            {
+                theCameraFollow.MakeCameraSizeSmaller();
+            }
+        }
+    }
 
     Vector2 ForwardVelocity()
     {
-        return transform.up * Vector2.Dot(rb.velocity, transform.up);
+        return transform.up * Vector2.Dot(myRigidBody2D.velocity, transform.up);
     }
 
     Vector2 RightVelocity()
     {
-        return transform.right * Vector2.Dot(rb.velocity, transform.right);
+        return transform.right * Vector2.Dot(myRigidBody2D.velocity, transform.right);
     }
 }
