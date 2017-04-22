@@ -5,6 +5,8 @@ using UnityEngine;
 public class ScrollUV : MonoBehaviour
 {
 
+    private float parralax = 2f;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -20,8 +22,8 @@ public class ScrollUV : MonoBehaviour
 
         Vector2 offset = mat.mainTextureOffset;
 
-        offset.x = transform.position.x / transform.localScale.x;
-        offset.y = transform.position.y / transform.localScale.y;
+        offset.x = transform.position.x / transform.localScale.x / parralax;
+        offset.y = transform.position.y / transform.localScale.y / parralax;
 
         mat.mainTextureOffset = offset;
 	}
