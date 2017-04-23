@@ -19,8 +19,21 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        Movement();
-        CameraSize();
+        if (GameController.Instance.GameState == GameState.Started)
+        {
+            Movement();
+            CameraSize();
+        }
+        else
+        {
+            myRigidBody2D.velocity = Vector2.zero;
+
+            if (GameController.Instance.GameState == GameState.Gameover)
+            {
+                GetComponent<ScaleBreath>().shrink = true;
+            }
+        }
+
     }
 
     public void Movement()
