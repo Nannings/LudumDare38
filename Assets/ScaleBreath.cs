@@ -12,6 +12,8 @@ public class ScaleBreath : MonoBehaviour {
     private float scale;
     private bool scaleToggle = false;
 
+    public bool shrink { get; set; }
+
     // Use this for initialization
     void Start () {
         scale = transform.localScale.x;
@@ -24,7 +26,12 @@ public class ScaleBreath : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (scaleToggle)
+
+        if (shrink)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0, 0, transform.localScale.z), Time.deltaTime);
+        }
+        else if (scaleToggle)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(scale + scaleRate, scale + scaleRate, transform.localScale.z), Time.deltaTime);
         }
@@ -32,6 +39,7 @@ public class ScaleBreath : MonoBehaviour {
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(scale - scaleRate, scale - scaleRate, transform.localScale.z), Time.deltaTime);
         }
+
     }
 
     IEnumerator CoScaleToggle()
