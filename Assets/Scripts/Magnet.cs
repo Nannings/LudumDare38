@@ -8,6 +8,19 @@ public class Magnet : MonoBehaviour {
     private float strengthOfAttraction = 100.0f;
     private Rigidbody2D myRidigBody2D;
 
+    public GameObject AttractedTo
+    {
+        get
+        {
+            return attractedTo;
+        }
+
+        set
+        {
+            attractedTo = value;
+        }
+    }
+
     private void Start()
     {
         myRidigBody2D = GetComponent<Rigidbody2D>();
@@ -15,12 +28,12 @@ public class Magnet : MonoBehaviour {
 
     void Update()
     {
-        if (attractedTo != null)
+        if (AttractedTo != null)
         {
             //some of this code is from: http://answers.unity3d.com/questions/640504/creating-local-gravity-to-attract-specific-gameobj.html
 
             //get the offset between the objects
-            Vector3 offset = attractedTo.transform.position - transform.position;
+            Vector3 offset = AttractedTo.transform.position - transform.position;
 
             //we're doing 2d physics, so don't want to try and apply z forces!
             offset.z = 0;
@@ -43,9 +56,9 @@ public class Magnet : MonoBehaviour {
         {
             if (collision.transform.parent.CompareTag("Planet"))
             {
-                if (collision.transform.parent.gameObject != attractedTo)
+                if (collision.transform.parent.gameObject != AttractedTo)
                 {
-                    attractedTo = collision.transform.parent.gameObject;
+                    AttractedTo = collision.transform.parent.gameObject;
                 }
             }
         }
@@ -59,16 +72,16 @@ public class Magnet : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        GettingAttachedTo(collision);
+        //GettingAttachedTo(collision);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.transform.parent)
         {
-            if (collision.transform.parent.gameObject == attractedTo)
+            if (collision.transform.parent.gameObject == AttractedTo)
             {
-                attractedTo = null;
+                AttractedTo = null;
             }
         }
     }

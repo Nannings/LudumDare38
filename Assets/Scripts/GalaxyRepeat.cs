@@ -40,7 +40,7 @@ public class GalaxyRepeat : MonoBehaviour
         if (transform.position.y - (sizeY / 2) > player.transform.position.y)
         {
             Vector3 newPos = transform.position;
-            newPos.y = transform.position.y - sizeY - sizeX / 2;
+            newPos.y = transform.position.y - sizeY - sizeY / 2;
             transform.position = newPos;
         }
 
